@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Dijkstra_Prim_visualisation/static/css/main.fa91af18.chunk.css",
+    "main.js": "/Dijkstra_Prim_visualisation/static/js/main.ab9eeebf.chunk.js",
+    "main.js.map": "/Dijkstra_Prim_visualisation/static/js/main.ab9eeebf.chunk.js.map",
+    "runtime-main.js": "/Dijkstra_Prim_visualisation/static/js/runtime-main.9e2d8982.js",
+    "runtime-main.js.map": "/Dijkstra_Prim_visualisation/static/js/runtime-main.9e2d8982.js.map",
+    "static/js/2.8f8481e5.chunk.js": "/Dijkstra_Prim_visualisation/static/js/2.8f8481e5.chunk.js",
+    "static/js/2.8f8481e5.chunk.js.map": "/Dijkstra_Prim_visualisation/static/js/2.8f8481e5.chunk.js.map",
+    "index.html": "/Dijkstra_Prim_visualisation/index.html",
+    "precache-manifest.f45a237e777f0d545055dad4d434537e.js": "/Dijkstra_Prim_visualisation/precache-manifest.f45a237e777f0d545055dad4d434537e.js",
+    "service-worker.js": "/Dijkstra_Prim_visualisation/service-worker.js",
+    "static/css/main.fa91af18.chunk.css.map": "/Dijkstra_Prim_visualisation/static/css/main.fa91af18.chunk.css.map",
+    "static/js/2.8f8481e5.chunk.js.LICENSE.txt": "/Dijkstra_Prim_visualisation/static/js/2.8f8481e5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9e2d8982.js",
+    "static/js/2.8f8481e5.chunk.js",
+    "static/css/main.fa91af18.chunk.css",
+    "static/js/main.ab9eeebf.chunk.js"
+  ]
+}
