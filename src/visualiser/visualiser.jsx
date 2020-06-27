@@ -1,6 +1,7 @@
 import React from 'react';
 import './visualiser.css';
 import Cell from './cell'
+import Legend from './legend'
 
 const numRow = 20;
 const numCol = 50;
@@ -100,6 +101,7 @@ class Visualiser extends React.Component {
         const grid = this.state.grid;
         return (
             <main>
+                <Legend/>
                 <h1>Dijkstra algorithm visualisation</h1>
                 <div className="menu">
                     <button onClick={this.findPath}>Find Path</button>
