@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Dijkstra_Prim_visualisation/static/css/main.ee925c39.chunk.css",
-    "main.js": "/Dijkstra_Prim_visualisation/static/js/main.887a2183.chunk.js",
-    "main.js.map": "/Dijkstra_Prim_visualisation/static/js/main.887a2183.chunk.js.map",
+    "main.css": "/Dijkstra_Prim_visualisation/static/css/main.65267c53.chunk.css",
+    "main.js": "/Dijkstra_Prim_visualisation/static/js/main.096de18f.chunk.js",
+    "main.js.map": "/Dijkstra_Prim_visualisation/static/js/main.096de18f.chunk.js.map",
     "runtime-main.js": "/Dijkstra_Prim_visualisation/static/js/runtime-main.9e2d8982.js",
     "runtime-main.js.map": "/Dijkstra_Prim_visualisation/static/js/runtime-main.9e2d8982.js.map",
-    "static/js/2.7046d289.chunk.js": "/Dijkstra_Prim_visualisation/static/js/2.7046d289.chunk.js",
-    "static/js/2.7046d289.chunk.js.map": "/Dijkstra_Prim_visualisation/static/js/2.7046d289.chunk.js.map",
+    "static/js/2.e1fce8a9.chunk.js": "/Dijkstra_Prim_visualisation/static/js/2.e1fce8a9.chunk.js",
+    "static/js/2.e1fce8a9.chunk.js.map": "/Dijkstra_Prim_visualisation/static/js/2.e1fce8a9.chunk.js.map",
     "index.html": "/Dijkstra_Prim_visualisation/index.html",
-    "precache-manifest.f58756802666e1c47e846f812802bd4d.js": "/Dijkstra_Prim_visualisation/precache-manifest.f58756802666e1c47e846f812802bd4d.js",
+    "precache-manifest.7cd23f636ed67dea9ca3cad77fcaeb51.js": "/Dijkstra_Prim_visualisation/precache-manifest.7cd23f636ed67dea9ca3cad77fcaeb51.js",
     "service-worker.js": "/Dijkstra_Prim_visualisation/service-worker.js",
-    "static/css/main.ee925c39.chunk.css.map": "/Dijkstra_Prim_visualisation/static/css/main.ee925c39.chunk.css.map",
-    "static/js/2.7046d289.chunk.js.LICENSE.txt": "/Dijkstra_Prim_visualisation/static/js/2.7046d289.chunk.js.LICENSE.txt"
+    "static/css/main.65267c53.chunk.css.map": "/Dijkstra_Prim_visualisation/static/css/main.65267c53.chunk.css.map",
+    "static/js/2.e1fce8a9.chunk.js.LICENSE.txt": "/Dijkstra_Prim_visualisation/static/js/2.e1fce8a9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9e2d8982.js",
-    "static/js/2.7046d289.chunk.js",
-    "static/css/main.ee925c39.chunk.css",
-    "static/js/main.887a2183.chunk.js"
+    "static/js/2.e1fce8a9.chunk.js",
+    "static/css/main.65267c53.chunk.css",
+    "static/js/main.096de18f.chunk.js"
   ]
 }
