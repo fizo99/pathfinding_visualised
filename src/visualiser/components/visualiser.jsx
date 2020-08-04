@@ -1,12 +1,12 @@
 import React from "react";
-import "./styles/visualiser.css";
+import "./styles/visualiser.scss";
 import Cell from "./cell";
 import Legend from "./legend";
 import { dijkstra } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 
-const numRow = 20;
-const numCol = 50;
+let numRow = 20;
+let numCol = 50;
 
 class Visualiser extends React.Component {
   constructor() {
@@ -16,18 +16,19 @@ class Visualiser extends React.Component {
       visitedCells: [],
       startCellCoords: {
         row: 10,
-        col: 10,
+        col: 8,
       },
       endCellCoords: {
         row: 10,
-        col: 40,
+        col: 14,
       },
       clickOption: "",
       drawingWalls: false,
       mouseClicked: false,
       changingStart: false,
       changingEnd: false,
-      animationSpeed: 7,
+      animationSpeed: 14,
+      animationInProccess: false,
     };
     this.tempGrid = null;
   }
@@ -62,6 +63,7 @@ class Visualiser extends React.Component {
   };
 
   resetGrid = () => {
+    if (this.state.animationInProccess) return;
     const { grid } = this.state;
     for (let i = 0; i < numCol; i++) {
       for (let j = 0; j < numRow; j++) {
@@ -81,6 +83,7 @@ class Visualiser extends React.Component {
 
   //ALGORITHMS
   aStarSolve = async () => {
+    if (this.state.animationInProccess) return;
     const { startCellCoords, endCellCoords, grid } = this.state;
     const startCell = grid[startCellCoords.row][startCellCoords.col];
     const endCell = grid[endCellCoords.row][endCellCoords.col];
@@ -93,6 +96,7 @@ class Visualiser extends React.Component {
     }
     await this.setState({
       grid: grid,
+      animationInProccess: true,
     });
 
     const visitedCellsInOrder = astar(grid, startCell, endCell);
@@ -105,11 +109,12 @@ class Visualiser extends React.Component {
       })
       .then((grid) => {
         const newGrid = this.animatePath(grid);
-        this.setState({ grid: newGrid });
+        this.setState({ grid: newGrid, animationInProccess: false });
       });
   };
 
   dijkstraSolve = async () => {
+    if (this.state.animationInProccess) return;
     const { grid, startCellCoords, endCellCoords } = this.state;
     for (let i = 0; i < numCol; i++) {
       for (let j = 0; j < numRow; j++) {
@@ -119,6 +124,7 @@ class Visualiser extends React.Component {
     }
     await this.setState({
       grid: grid,
+      animationInProccess: true,
     });
     const startCell = grid[startCellCoords.row][startCellCoords.col];
     const endCell = grid[endCellCoords.row][endCellCoords.col];
@@ -133,7 +139,7 @@ class Visualiser extends React.Component {
       })
       .then((grid) => {
         const newGrid = this.animatePath(grid);
-        this.setState({ grid: newGrid });
+        this.setState({ grid: newGrid, animationInProccess: false });
       });
   };
 
@@ -182,18 +188,19 @@ class Visualiser extends React.Component {
     }
     return grid;
   };
-
   delay = (ms) => {
     return new Promise((res) => setTimeout(res, ms));
   };
 
+  // INTERACTIONS HANDLERS
   handleAnimationSpeed = (e) => {
+    if (this.state.animationInProccess) return;
     switch (e.target.value) {
       case "fast":
-        this.setState({ animationSpeed: 2 });
+        this.setState({ animationSpeed: 7 });
         break;
       case "average":
-        this.setState({ animationSpeed: 12 });
+        this.setState({ animationSpeed: 14 });
         break;
       case "slow":
         this.setState({ animationSpeed: 25 });
@@ -202,9 +209,9 @@ class Visualiser extends React.Component {
         break;
     }
   };
-
   //START / END BUTTON HANDLERS
   changeStartHandler = () => {
+    if (this.state.animationInProccess) return;
     this.setState({
       changingStart: true,
       changingEnd: false,
@@ -212,10 +219,20 @@ class Visualiser extends React.Component {
     });
   };
   changeEndHandler = () => {
+    if (this.state.animationInProccess) return;
     this.setState({
       changingEnd: true,
       changingStart: false,
       drawingWalls: false,
+    });
+  };
+  //DRAW WALLS BUTTON HANDLER
+  drawingWalls = () => {
+    if (this.state.animationInProccess) return;
+    this.setState({
+      drawingWalls: true,
+      changingStart: false,
+      changingEnd: false,
     });
   };
 
@@ -251,17 +268,9 @@ class Visualiser extends React.Component {
     });
   };
 
-  //DRAW WALLS BUTTON HANDLER
-  drawingWalls = () => {
-    this.setState({
-      drawingWalls: true,
-      changingStart: false,
-      changingEnd: false,
-    });
-  };
-
   //DRAG ON GRID / DRAWING WALLS
   handlePress = (e) => {
+    if (this.state.animationInProccess) return;
     const coords = e.target.id.split("-");
     if (coords.length < 2) return;
     if (
@@ -276,23 +285,83 @@ class Visualiser extends React.Component {
     this.tempGrid[coords[0]][coords[1]].isWall = true;
   };
   handleMouseDown = () => {
+    if (this.state.animationInProccess) return;
     this.tempGrid = this.state.grid;
     this.setState({
       mouseClicked: true,
     });
   };
   handleMouseUp = () => {
+    if (this.state.animationInProccess) return;
     this.setState({
       mouseClicked: false,
       grid: this.tempGrid,
     });
   };
 
-  componentDidMount() {
+  //window sizing/resizing for responsive layout
+  sizing = async () => {
+    console.log("sizing");
+    const width = window.innerWidth;
+    if (width <= 576) {
+      numCol = 15;
+    } else if (width > 576 && width <= 1024) {
+      numCol = 25;
+    } else if (width > 1024 && width < 1200) {
+      numCol = 30;
+    } else {
+      numCol = 50;
+    }
+
+    await this.setState({
+      startCellCoords: {
+        row: 10,
+        col: parseInt(numCol / 3),
+      },
+      endCellCoords: {
+        row: 10,
+        col: parseInt((numCol / 3) * 2),
+      },
+    });
+
     const grid = this.makeGrid();
     this.setState({
       grid: grid,
     });
+  };
+  reSizing = async () => {
+    console.log("resizing");
+    const width = window.innerWidth;
+    if (width <= 576) {
+      numCol = 15;
+    } else if (width > 576 && width <= 1024) {
+      numCol = 25;
+    } else if (width > 1024 && width < 1200) {
+      numCol = 30;
+    } else {
+      numCol = 50;
+    }
+    await this.setState({
+      startCellCoords: {
+        row: 10,
+        col: parseInt(numCol / 3),
+      },
+      endCellCoords: {
+        row: 10,
+        col: parseInt(numCol / 3) * 2,
+      },
+    });
+
+    const grid = this.makeGrid();
+
+    this.setState({
+      grid: grid,
+    });
+  };
+
+  componentDidMount() {
+    window.onload = this.sizing;
+    window.addEventListener("resize", this.reSizing);
   }
 
   render() {
@@ -302,39 +371,41 @@ class Visualiser extends React.Component {
       <main>
         <section className="menu">
           <Legend />
-          <section className="buttons">
-            <button onClick={this.dijkstraSolve}>
-              <span>Dijkstra</span>
-            </button>
-            <button onClick={this.aStarSolve}>
-              <span>A*</span>
-            </button>
-          </section>
-          <section className="interactions">
-            <select
-              id="animationSpeed"
-              onChange={this.handleAnimationSpeed}
-              defaultValue={"Speed"}
-            >
-              <option hidden disabled value="Speed">
-                Speed
-              </option>
-              <option value="fast">Fast</option>
-              <option value="average">Average</option>
-              <option value="slow">Slow</option>
-            </select>
-            <button onClick={this.resetGrid} className="btn-reset">
-              <span>Reset</span>
-            </button>
-            <button onClick={this.drawingWalls} className="btn-wall">
-              <span>Add walls</span>
-            </button>
-            <button onClick={this.changeStartHandler} className="btn-start">
-              <span>Change Start Cell</span>
-            </button>
-            <button onClick={this.changeEndHandler} className="btn-finish">
-              <span>Change End Cell</span>
-            </button>
+          <section className="clickable">
+            <section className="algorithmsButtons">
+              <button onClick={this.dijkstraSolve}>
+                <span>Dijkstra</span>
+              </button>
+              <button onClick={this.aStarSolve}>
+                <span>A*</span>
+              </button>
+            </section>
+            <section className="interactions">
+              <select
+                id="animationSpeed"
+                onChange={this.handleAnimationSpeed}
+                defaultValue={"Speed"}
+              >
+                <option hidden disabled value="Speed">
+                  Speed
+                </option>
+                <option value="fast">Fast</option>
+                <option value="average">Average</option>
+                <option value="slow">Slow</option>
+              </select>
+              <button onClick={this.resetGrid} className="btn-reset">
+                <span>Reset</span>
+              </button>
+              <button onClick={this.drawingWalls} className="btn-wall">
+                <span>Add walls</span>
+              </button>
+              <button onClick={this.changeStartHandler} className="btn-start">
+                <span>Change Start</span>
+              </button>
+              <button onClick={this.changeEndHandler} className="btn-finish">
+                <span>Change End</span>
+              </button>
+            </section>
           </section>
         </section>
         <section
@@ -407,6 +478,7 @@ function chooseFunction(state, changeEndFunc, changeStartFunc) {
   if (state.changingStart) return changeStartFunc;
   else if (state.changingEnd) return changeEndFunc;
 }
+
 ////////////// BIN ////////////////////////////
 
 // generateMaze = () => {

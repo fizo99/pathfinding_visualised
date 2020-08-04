@@ -1,32 +1,29 @@
 import React from "react";
-import "./styles/legend.css";
 
 export default class Legend extends React.Component {
   render() {
     return (
       <section className="legend">
-        <ul>
-          <li>
-            <div className="legendCell path"></div>
-            <h6>Path</h6>
-          </li>
-          <li>
-            <div className="legendCell wall"></div>
-            <h6>Wall</h6>
-          </li>
-          <li>
-            <div className="legendCell visited"></div>
-            <h6>Visited</h6>
-          </li>
-          <li>
-            <div className="legendCell start"></div>
-            <h6>Start</h6>
-          </li>
-          <li>
-            <div className="legendCell finish"></div>
-            <h6>Finish</h6>
-          </li>
-        </ul>
+        <div className="legendPosition">
+          <div className="legendCell pathLegend"></div>
+          <span>Path</span>
+        </div>
+        <div className="legendPosition">
+          <div className="legendCell wallLegend"></div>
+          <span>Wall</span>
+        </div>
+        <div className="legendPosition">
+          <div className="legendCell visitedLegend"></div>
+          <span>Visited</span>
+        </div>
+        <div className="legendPosition">
+          <div className="legendCell startLegend"></div>
+          <span>Start</span>
+        </div>
+        <div className="legendPosition">
+          <div className="legendCell finishLegend"></div>
+          <span>Finish</span>
+        </div>
       </section>
     );
   }

@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles/cell.css";
 
 export default class Cell extends React.Component {
   render() {
