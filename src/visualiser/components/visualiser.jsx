@@ -64,16 +64,16 @@ class Visualiser extends React.Component {
 
   resetGrid = () => {
     if (this.state.animationInProccess) return;
-    const { grid } = this.state;
-    for (let i = 0; i < numCol; i++) {
-      for (let j = 0; j < numRow; j++) {
-        grid[j][i].isVisited = false;
-        grid[j][i].isPath = false;
-        grid[j][i].isWall = false;
-      }
-    }
+    // const { grid } = this.state;
+    // for (let i = 0; i < numCol; i++) {
+    //   for (let j = 0; j < numRow; j++) {
+    //     grid[j][i].isVisited = false;
+    //     grid[j][i].isPath = false;
+    //     grid[j][i].isWall = false;
+    //   }
+    // }
     this.setState({
-      grid: grid,
+      grid: this.makeGrid(),
       drawingWalls: false,
       mouseClicked: false,
       changingStart: false,
@@ -238,6 +238,7 @@ class Visualiser extends React.Component {
 
   //CHANGING START/END CELLS
   changeEndCell = (e) => {
+    if (this.state.animationInProccess) return;
     const cellCoords = e.target.id.split("-");
     if (cellCoords.length < 2) return;
 
@@ -253,6 +254,7 @@ class Visualiser extends React.Component {
     });
   };
   changeStartCell = (e) => {
+    if (this.state.animationInProccess) return;
     const cellCoords = e.target.id.split("-");
     if (cellCoords.length < 2) return;
 
@@ -301,7 +303,7 @@ class Visualiser extends React.Component {
 
   //window sizing/resizing for responsive layout
   sizing = async () => {
-    console.log("sizing");
+    if (this.state.animationInProccess) return;
     const width = window.innerWidth;
     if (width <= 576) {
       numCol = 15;
@@ -330,7 +332,7 @@ class Visualiser extends React.Component {
     });
   };
   reSizing = async () => {
-    console.log("resizing");
+    if (this.state.animationInProccess) return;
     const width = window.innerWidth;
     if (width <= 576) {
       numCol = 15;

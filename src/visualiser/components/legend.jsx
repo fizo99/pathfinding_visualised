@@ -4,24 +4,23 @@ export default class Legend extends React.Component {
   render() {
     return (
       <section className="legend">
-        <div className="legendPosition">
-          <div className="legendCell pathLegend"></div>
+        <div className="legendCell pathLegend">
           <span>Path</span>
         </div>
-        <div className="legendPosition">
-          <div className="legendCell wallLegend"></div>
+
+        <div className="legendCell wallLegend">
           <span>Wall</span>
         </div>
-        <div className="legendPosition">
-          <div className="legendCell visitedLegend"></div>
+
+        <div className="legendCell visitedLegend">
           <span>Visited</span>
         </div>
-        <div className="legendPosition">
-          <div className="legendCell startLegend"></div>
+
+        <div className="legendCell startLegend">
           <span>Start</span>
         </div>
-        <div className="legendPosition">
-          <div className="legendCell finishLegend"></div>
+
+        <div className="legendCell finishLegend">
           <span>Finish</span>
         </div>
       </section>
