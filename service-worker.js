@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Dijkstra_Prim_visualisation/precache-manifest.7cd23f636ed67dea9ca3cad77fcaeb51.js"
+  "/Dijkstra_Prim_visualisation/precache-manifest.7c1d16448d7170061d191fd808723555.js"
 );
 
 self.addEventListener('message', (event) => {
