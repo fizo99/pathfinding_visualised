@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Visualiser from "./visualiser/components/visualiser";
+import Visualiser from "./visualiser/components/Visualiser";
 // import "./visualiser/components/styles/visualiser.less";
 
 ReactDOM.render(

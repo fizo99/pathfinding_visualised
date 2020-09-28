@@ -1,0 +1,36 @@
+.legend {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 1em;
+  width: 20%;
+}
+
+.legendCell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 90%;
+
+  border: 2px solid black;
+  margin-right: 2px;
+  color: black;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+.pathLegend {
+  background-color: #fcff6c;
+}
+.visitedLegend {
+  background-color: #cae5ff;
+}
+.wallLegend {
+  background-color: #264653;
+}
+.startLegend {
+  background-color: #2a9d8f;
+}
+.finishLegend {
+  background-color: #f95738;
+}

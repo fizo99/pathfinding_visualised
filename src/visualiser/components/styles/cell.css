@@ -1,0 +1,50 @@
+.cell {
+  width: calc(100% - 30px);
+  border: 1px #00c2d1 dashed;
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.path {
+  animation-duration: 2s;
+  animation-name: appearPath;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+.visited {
+  animation-duration: 0.3s;
+  animation-name: appearVisited;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+.wall {
+  background-color: #264653;
+}
+.start {
+  background-color: #2a9d8f;
+}
+.finish {
+  background-color: #f95738;
+}
+
+@keyframes appearPath {
+  0% {
+    background-color: #cae5ff;
+  }
+  100% {
+    background-color: #fcff6c;
+  }
+}
+
+@keyframes appearVisited {
+  from {
+    background-color: #17bebb;
+    transform: scale(1.2);
+  }
+  to {
+    background-color: #cae5ff;
+  }
+}

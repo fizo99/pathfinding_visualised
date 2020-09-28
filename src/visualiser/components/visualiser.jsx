@@ -1,7 +1,11 @@
 import React from "react";
-import "./styles/visualiser.scss";
-import Cell from "./cell";
-import Legend from "./legend";
+//import "./styles/visualiser.scss";
+import "./styles/visualiser.css";
+import "./styles/mobile/media-queries.css";
+import Cell from "./Cell";
+import Legend from "./Legend";
+import Footer from "./Footer";
+import TopBar from "./Menu";
 import { dijkstra } from "../algorithms/dijkstra";
 import { astar } from "../algorithms/astar";
 
@@ -368,48 +372,19 @@ class Visualiser extends React.Component {
 
   render() {
     const grid = this.state.grid;
+    const algorithms = {
+      dijkstra: this.dijkstraSolve,
+      astar: this.aStarSolve,
+      resetGrid: this.resetGrid,
+      drawingWalls: this.drawingWalls,
+      changeStart: this.changeStartHandler,
+      changeEnd: this.changeEndHandler,
+      changeSpeed: this.handleAnimationSpeed,
+    };
     const { drawingWalls, mouseClicked } = this.state;
     return (
       <main>
-        <section className="menu">
-          <Legend />
-          <section className="clickable">
-            <section className="algorithmsButtons">
-              <button onClick={this.dijkstraSolve}>
-                <span>Dijkstra</span>
-              </button>
-              <button onClick={this.aStarSolve}>
-                <span>A*</span>
-              </button>
-            </section>
-            <section className="interactions">
-              <select
-                id="animationSpeed"
-                onChange={this.handleAnimationSpeed}
-                defaultValue={"Speed"}
-              >
-                <option hidden disabled value="Speed">
-                  Speed
-                </option>
-                <option value="fast">Fast</option>
-                <option value="average">Average</option>
-                <option value="slow">Slow</option>
-              </select>
-              <button onClick={this.resetGrid} className="btn-reset">
-                <span>Reset</span>
-              </button>
-              <button onClick={this.drawingWalls} className="btn-wall">
-                <span>Add walls</span>
-              </button>
-              <button onClick={this.changeStartHandler} className="btn-start">
-                <span>Change Start</span>
-              </button>
-              <button onClick={this.changeEndHandler} className="btn-finish">
-                <span>Change End</span>
-              </button>
-            </section>
-          </section>
-        </section>
+        <TopBar actions={algorithms} />
         <section
           className="grid"
           id="grid"
@@ -455,20 +430,7 @@ class Visualiser extends React.Component {
             );
           })}
         </section>
-        <footer>
-          <div className="socials">
-            <a href="https://github.com/fizo99">
-              <i className="fab fa-github-square"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/krzysztof-huczek-a1bb36175/">
-              <i className="fab fa-linkedin"></i>
-            </a>
-            <a href="https://www.facebook.com/mvpett">
-              <i className="fab fa-facebook-square"></i>
-            </a>
-          </div>
-          <h6>© Krzysztof Huczek, 2020</h6>
-        </footer>
+        <Footer />
       </main>
     );
   }

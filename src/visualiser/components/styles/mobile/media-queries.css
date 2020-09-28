@@ -1,0 +1,160 @@
+@media (max-width: 1200px) {
+  .menu {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    height: 20% !important;
+    width: 100%;
+  }
+  .grid {
+    height: 70%;
+  }
+  footer {
+    height: 10%;
+  }
+
+  .menu .legend {
+    height: 40%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-right: 0;
+  }
+  .menu .legend .finishLegend {
+    margin-right: 0;
+  }
+  .menu .clickable {
+    width: 100%;
+    height: 60%;
+  }
+  .clickable .algorithmsButtons {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  .algorithmsButtons button {
+    width: 90% !important;
+    margin-top: 1px;
+  }
+  .clickable .interactions {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+    flex-flow: row wrap;
+  }
+  .clickable .interactions button {
+    width: 25%;
+    margin-top: 1px;
+  }
+  .interactions select {
+    margin-left: 0;
+    margin-top: 1px;
+    width: 35%;
+    outline-width: 0;
+  }
+}
+/* 
+// // typography
+// @media (min-width: 1201px) {
+//   .legend span {
+//     font-size: 0.75rem;
+//     font-weight: 700;
+//   }
+//   .clickable span {
+//     font-size: 0.8rem;
+//   }
+// }
+
+// @media (min-width: 1025px) and (max-width: 1200px) {
+//   .legend span {
+//     font-size: 0.8rem;
+//     font-weight: 700;
+//   }
+//   .clickable span {
+//     font-size: 0.9rem;
+//   }
+
+//   .interactions select {
+//     font-size: 0.9rem;
+//     font-weight: 500;
+//   }
+//   footer {
+//     font-size: 1.2rem;
+//   }
+//   .grid i {
+//     font-size: 1.2rem;
+//   }
+// }
+
+// @media (min-width: 769px) and (max-width: 1024px) {
+//   .legend span {
+//     font-size: 1rem;
+//   }
+//   .clickable span {
+//     font-size: 1.1rem;
+//   }
+
+//   .interactions select {
+//     font-size: 1.1rem;
+//     font-weight: 500;
+//   }
+//   footer {
+//     font-size: 1.2rem;
+//   }
+//   .grid i {
+//     font-size: 1.2rem;
+//   }
+// }
+
+// @media (max-width: 768px) and (min-width: 415px) {
+//   .legend span {
+//     font-size: 0.9rem;
+//   }
+//   .clickable span {
+//     font-size: 0.9rem;
+//   }
+
+//   .interactions select {
+//     font-size: 0.9rem;
+//     font-weight: 500;
+//   }
+//   footer {
+//     font-size: 1.2rem;
+//   }
+//   .grid i {
+//     font-size: 1.1rem;
+//   }
+// }
+
+// @media (max-width: 414px) and (min-width: 361px) {
+//   .legend span {
+//     font-size: 0.75rem;
+//   }
+//   .clickable span {
+//     font-size: 0.8rem;
+//   }
+
+//   .interactions select {
+//     font-size: 0.7rem;
+//     font-weight: 500;
+//   }
+//   footer {
+//     font-size: 1.2rem;
+//   }
+// }
+
+// @media (max-width: 360px) {
+//   .legend span {
+//     font-size: 0.6rem;
+//   }
+//   .clickable span {
+//     font-size: 0.65rem;
+//   }
+
+//   .interactions select {
+//     font-size: 0.55rem;
+//     font-weight: 500;
+//   }
+// } */
