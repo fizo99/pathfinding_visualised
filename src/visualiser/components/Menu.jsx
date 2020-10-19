@@ -1,49 +1,49 @@
 import React from "react";
 import Legend from "./Legend";
 import Button from "./Button";
+import SelectField from "./SelectField";
+import { astar } from "../algorithms/astar";
+import { dijkstra } from "../algorithms/dijkstra";
 import "./styles/menu.css";
 
-const TopBar = (props) => {
+const Menu = (props) => {
+  const options = ["Fast", "Average", "Slow"];
+  const solve = props.actions["solveFunction"];
   return (
     <section className="menu">
       <Legend />
       <section className="clickable">
         <section className="algorithmsButtons">
-          <Button text={"Dijkstra"} handleClick={props.actions["dijkstra"]} />
-          <Button text={"A*"} handleClick={props.actions["astar"]} />
+          <Button text={"Dijkstra"} handleClick={() => solve(dijkstra)} />
+          <Button text={"A*"} handleClick={() => solve(astar)} />
+          <Button text={"Generate Maze"} handleClick={props.actions.genMaze} />
         </section>
         <section className="interactions">
-          <select
-            id="animationSpeed"
-            onChange={props.actions["changeSpeed"]}
+          <SelectField
+            id={"animationSpeed"}
+            options={options}
             defaultValue={"Speed"}
-          >
-            <option hidden disabled value="Speed">
-              Speed
-            </option>
-            <option value="fast">Fast</option>
-            <option value="average">Average</option>
-            <option value="slow">Slow</option>
-          </select>
+            handleAnimationSpeed={props.actions["changeSpeedHandler"]}
+          />
           <Button
             className="btn-reset"
             text={"Reset"}
             handleClick={props.actions["resetGrid"]}
           />
-          <Button
+          {/* <Button
             className="btn-wall"
             text={"Add walls"}
-            handleClick={props.actions["drawingWalls"]}
-          />
+            handleClick={props.actions["drawingWallsHandler"]}
+          /> */}
           <Button
             className="btn-start"
             text={"Change Start"}
-            handleClick={props.actions["changeStart"]}
+            handleClick={props.actions["changeStartHandler"]}
           />
           <Button
             className="btn-finish"
             text={"Change End"}
-            handleClick={props.actions["changeEnd"]}
+            handleClick={props.actions["changeEndHandler"]}
           />
         </section>
       </section>
@@ -51,4 +51,4 @@ const TopBar = (props) => {
   );
 };
 
-export default TopBar;
+export default Menu;

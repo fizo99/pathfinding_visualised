@@ -11,6 +11,9 @@ export default class Legend extends React.Component {
         <div className="legendCell wallLegend">
           <strong>Wall</strong>
         </div>
+        <div className="legendCell currentlyLegend">
+          <strong>Current</strong>
+        </div>
 
         <div className="legendCell visitedLegend">
           <strong>Visited</strong>

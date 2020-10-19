@@ -1,13 +1,26 @@
 .cell {
   width: calc(100% - 30px);
-  border: 1px #00c2d1 dashed;
+  /* border: 1px #00c2d1 solid; */
   display: inherit;
   justify-content: center;
   align-items: center;
   color: white;
+  background-color: #f0f8ff;
+  border: 1px solid #264653;
+  z-index: 3;
 }
+
+.appear {
+  animation-duration: 1s;
+  animation-name: scale;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  z-index: 7;
+}
+
 .path {
-  animation-duration: 2s;
+  animation-duration: 0.2s;
   animation-name: appearPath;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -19,32 +32,48 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
+  z-index: 10;
 }
 .wall {
   background-color: #264653;
+  animation-duration: 0.1s;
+  animation-name: scale;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  z-index: 7;
+  border: 1px solid #264653;
 }
 .start {
   background-color: #2a9d8f;
+  /* border: 1px solid #2a9d8f; */
 }
 .finish {
   background-color: #f95738;
+  /* border: 1px solid #f95738; */
 }
 
 @keyframes appearPath {
   0% {
-    background-color: #cae5ff;
+    background-color: #d8b6c8;
   }
   100% {
-    background-color: #fcff6c;
+    background-color: #f3a712;
   }
 }
 
 @keyframes appearVisited {
   from {
-    background-color: #17bebb;
+    background-color: #9a275a;
     transform: scale(1.2);
   }
   to {
-    background-color: #cae5ff;
+    background-color: #d8b6c8;
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1.5);
   }
 }

@@ -5,7 +5,6 @@ export const dijkstra = (grid, startCell, finishCell) => {
   while (unVisitedCells.length) {
     unVisitedCells.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance); // min heap better option
     const closestCell = unVisitedCells.shift();
-    if (closestCell.isWall) continue;
     if (closestCell.distance === Infinity) return visitedCellsInOrder;
     closestCell.isVisited = true;
     visitedCellsInOrder.push(closestCell);
@@ -45,6 +44,7 @@ const getCells = (grid) => {
 
   for (let i = 0; i < numRow; i++) {
     for (let j = 0; j < numCol; j++) {
+      if (grid[i][j].isWall) continue;
       listOfCells.push(grid[i][j]);
     }
   }

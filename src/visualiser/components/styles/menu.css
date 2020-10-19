@@ -2,11 +2,12 @@
   height: 10%;
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 .clickable {
   width: 80%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .algorithmsButtons {
   display: flex;
@@ -22,6 +23,7 @@
 .algorithmsButtons button {
   width: 45%;
   height: 50%;
+  margin-left: 2px;
 }
 
 .interactions button,

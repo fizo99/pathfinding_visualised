@@ -21,8 +21,10 @@
     justify-content: space-between;
     font-weight: 700;
     margin-right: 0;
+    margin-top: 1em;
   }
-  .menu .legend .finishLegend {
+  .menu .legend .finishLegend,
+  .menu .legend .currentlyLegend {
     margin-right: 0;
   }
   .menu .clickable {
@@ -37,6 +39,7 @@
   .algorithmsButtons button {
     width: 90% !important;
     margin-top: 1px;
+    margin-left: 0 !important;
   }
   .clickable .interactions {
     display: flex;

@@ -1,9 +1,10 @@
 .legend {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: center;
   margin-right: 1em;
-  width: 20%;
+  margin-bottom: 1em;
 }
 
 .legendCell {
@@ -11,19 +12,20 @@
   justify-content: center;
   align-items: center;
   height: 50%;
-  width: 90%;
+  width: 30%;
 
   border: 2px solid black;
   margin-right: 2px;
+  margin-bottom: 2px;
   color: black;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   letter-spacing: 2px;
 }
 .pathLegend {
-  background-color: #fcff6c;
+  background-color: #f3a712;
 }
 .visitedLegend {
-  background-color: #cae5ff;
+  background-color: #d8b6c8;
 }
 .wallLegend {
   background-color: #264653;
@@ -33,4 +35,7 @@
 }
 .finishLegend {
   background-color: #f95738;
+}
+.currentlyLegend {
+  background-color: #9a275a;
 }

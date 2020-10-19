@@ -38,6 +38,7 @@ button:focus {
 button strong {
   position: relative;
   z-index: 2;
+  font-size: 0.7rem;
 }
 button.btn-start:after {
   background: #2a9d8f;
