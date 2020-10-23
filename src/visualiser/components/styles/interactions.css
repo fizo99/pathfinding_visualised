@@ -1,0 +1,17 @@
+.interactions {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+}
+
+.interactions button,
+select {
+  margin-left: 1em;
+  height: 50%;
+  width: 15%;
+}
+.interactions select {
+  padding: 0.4em;
+  display: flex;
+  border: 2px solid #333;
+}

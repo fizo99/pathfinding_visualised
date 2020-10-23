@@ -1,17 +1,28 @@
 import React from "react";
-import "./styles/visualiser.css";
-import "./styles/mobile/media-queries.css";
-import Footer from "./Footer";
-import Menu from "./Menu";
-import Grid from "./Grid";
-import DFSmaze from "../algorithms/DFSmaze";
+import "./App.css";
+import "./components/styles/mobile/media-queries.css";
 
+import { delay } from "./utils";
+
+//wrappers
+import Interactions from "./components/wrappers/Interactions";
+import AlgorithmsButtons from "./components/wrappers/AlgorithmsButtons";
+import Menu from "./components/wrappers/Menu";
+import Clickable from "./components/wrappers/Clickable";
+//components
+import Grid from "./components/Grid";
+import Legend from "./components/Legend";
+import Footer from "./components/Footer";
+import Button from "./components/Button";
+import SelectField from "./components/SelectField";
+//algorithms
+import { dijkstra } from "./algorithms/dijkstra";
+import { astar } from "./algorithms/astar";
+import DFSmaze from "./algorithms/DFSmaze";
+
+//number of rows and columns of start grid
 let numRow = 25;
 let numCol = 51;
-
-const delay = (ms) => {
-  return new Promise((res) => setTimeout(res, ms));
-};
 
 class App extends React.Component {
   constructor() {
@@ -26,11 +37,11 @@ class App extends React.Component {
         row: 12,
         col: 14,
       },
-      //isDrawingWalls: false,
+      isDrawingWalls: false,
       isMouseClicked: false,
       isChangingStart: false,
       isChangingEnd: false,
-      animationSpeed: 14,
+      animationSpeed: 3,
       isAnimationInProccess: false,
     };
     this.tempGrid = null;
@@ -48,8 +59,8 @@ class App extends React.Component {
       distance: Infinity,
       isVisited: false,
       isPath: false,
-      g: 0,
       f: 0,
+      g: 0,
       h: 0,
     };
   };
@@ -77,64 +88,49 @@ class App extends React.Component {
     });
   };
 
-  genMaze = async () => {
+  genMaze = () => {
     if (this.state.isAnimationInProccess) return;
+
     const { startCellCoords, endCellCoords } = this.state;
     const grid = this.makeGrid();
+
     DFSmaze(startCellCoords, endCellCoords, numRow, numCol, grid);
     this.setState({ grid: grid });
-    // const walls = [];
-    // for (let i = 0; i < numRow; i++) {
-    //   for (let j = 0; j < numCol - 1; j++) {
-    //     if (grid[i][j].isWall) walls.push(grid[i][j]);
-    //   }
-    // }
-    // const finalGrid = grid;
-    // for (let i = 0; i < numRow; i++) {
-    //   finalGrid[i].pop();
-    // }
-    // numCol--;
-    // const result = this.animateMaze(walls);
-    // result
-    //   .then(async (ms) => {
-    //     await delay(ms);
-    //   })
-    //   .then(() => {
-    //     this.setState({ grid: finalGrid });
-    //   });
   };
 
-  solve = async (algorithm) => {
+  solve = (algorithm) => {
     if (this.state.isAnimationInProccess) return;
     const { grid, startCellCoords, endCellCoords } = this.state;
     for (let i = 0; i < numCol; i++) {
       for (let j = 0; j < numRow; j++) {
         grid[j][i].isVisited = false;
+        grid[j][i].distance = Infinity;
+        grid[j][i].previousCell = null;
         grid[j][i].f = 0;
         grid[j][i].g = 0;
         grid[j][i].h = 0;
         grid[j][i].isPath = false;
       }
     }
-    await this.setState({
-      grid: grid,
-      isAnimationInProccess: true,
-    });
-    const startCell = grid[startCellCoords.row][startCellCoords.col];
-    const endCell = grid[endCellCoords.row][endCellCoords.col];
+    this.setState(
+      {
+        grid: grid,
+        isAnimationInProccess: true,
+      },
+      () => {
+        const startCell = grid[startCellCoords.row][startCellCoords.col];
+        const endCell = grid[endCellCoords.row][endCellCoords.col];
 
-    const visitedCellsInOrder = algorithm(grid, startCell, endCell);
-
-    const result = this.animateVisited(visitedCellsInOrder);
-    result
-      .then(async (data) => {
-        await delay(data[1]);
-        return data[0];
-      })
-      .then((grid) => {
-        const newGrid = this.animatePath(grid);
-        this.setState({ grid: newGrid, isAnimationInProccess: false });
-      });
+        const visitedCellsInOrder = algorithm(grid, startCell, endCell);
+        this.animateVisited(visitedCellsInOrder).then((data) => {
+          const grid = data[0];
+          delay(data[1]).then(() => {
+            const newGrid = this.animatePath(grid);
+            this.setState({ grid: newGrid, isAnimationInProccess: false });
+          });
+        });
+      }
+    );
   };
 
   //ANIMATIONS
@@ -186,14 +182,14 @@ class App extends React.Component {
   };
 
   // INTERACTIONS HANDLERS
-  handleAnimationSpeed = (e) => {
+  animationSpeedHandler = (e) => {
     if (this.state.isAnimationInProccess) return;
     const value = e.target.value;
-    if (value === "Fast") this.setState({ animationSpeed: 9 });
-    else if (value === "Average") this.setState({ animationSpeed: 14 });
+    if (value === "Fast") this.setState({ animationSpeed: 3 });
+    else if (value === "Average") this.setState({ animationSpeed: 12 });
     else if (value === "Slow") this.setState({ animationSpeed: 25 });
   };
-  changeStartHandler = () => {
+  changeStartBtnHandler = () => {
     if (this.state.isAnimationInProccess) return;
     this.setState({
       isChangingStart: true,
@@ -201,7 +197,7 @@ class App extends React.Component {
       isDrawingWalls: false,
     });
   };
-  changeEndHandler = () => {
+  changeEndBtnHandler = () => {
     if (this.state.isAnimationInProccess) return;
     this.setState({
       isChangingEnd: true,
@@ -209,6 +205,27 @@ class App extends React.Component {
       isDrawingWalls: false,
     });
   };
+  drawingWallsBtnHandler = () => {
+    if (this.state.isAnimationInProccess) return;
+    this.setState({
+      isChangingEnd: false,
+      isChangingStart: false,
+      isDrawingWalls: true,
+    });
+  };
+  mouseDownHandler = () => {
+    this.tempGrid = this.state.grid;
+    this.setState({
+      isMouseClicked: true,
+    });
+  };
+  mouseUpHandler = () => {
+    this.setState({
+      isMouseClicked: false,
+      grid: this.tempGrid,
+    });
+  };
+
   changeEndCell = (e) => {
     if (this.state.isAnimationInProccess) return;
     const cellCoords = e.target.id.split("-");
@@ -216,7 +233,7 @@ class App extends React.Component {
 
     const { endCellCoords, grid } = this.state;
     grid[endCellCoords.row][endCellCoords.col].isFinish = false;
-    grid[cellCoords[0]][cellCoords[1]].isFinish = true;
+    grid[parseInt(cellCoords[0])][parseInt(cellCoords[1])].isFinish = true;
     this.setState({
       grid: grid,
       endCellCoords: {
@@ -232,7 +249,7 @@ class App extends React.Component {
 
     const { startCellCoords, grid } = this.state;
     grid[startCellCoords.row][startCellCoords.col].isStart = false;
-    grid[cellCoords[0]][cellCoords[1]].isStart = true;
+    grid[parseInt(cellCoords[0])][parseInt(cellCoords[1])].isStart = true;
     this.setState({
       grid: grid,
       startCellCoords: {
@@ -242,27 +259,26 @@ class App extends React.Component {
     });
   };
 
-  //window sizing/resizing for responsive grid
-  sizing = async () => {
+  drawWalls = (e) => {
     if (this.state.isAnimationInProccess) return;
-    const width = window.innerWidth;
+    const { startCellCoords, endCellCoords } = this.state;
+    const cellCoords = e.target.id.split("-");
+    if (cellCoords.length < 2) return;
+    if (
+      (cellCoords[0] === startCellCoords.row &&
+        cellCoords[1] === startCellCoords.col) ||
+      (cellCoords[0] === endCellCoords.row &&
+        cellCoords[1] === endCellCoords.col)
+    )
+      return;
 
-    if (width <= 576) numCol = 15;
-    else if (width > 576 && width <= 1024) numCol = 25;
-    else if (width > 1024 && width < 1200) numCol = 30;
-    else numCol = 50;
-
-    await this.setState({
-      startCellCoords: { row: 12, col: Math.ceil(numCol / 3) },
-      endCellCoords: { row: 12, col: Math.ceil(numCol / 3) * 2 },
-    });
-
-    const grid = this.makeGrid();
-    this.setState({
-      grid: grid,
-    });
+    document.getElementById(
+      "" + cellCoords[0] + "-" + cellCoords[1]
+    ).className = "cell wall";
+    this.tempGrid[cellCoords[0]][cellCoords[1]].isWall = true;
   };
-  reSizing = async () => {
+  //window sizing/resizing for responsive grid
+  sizing = () => {
     if (this.state.isAnimationInProccess) return;
     const width = window.innerWidth;
 
@@ -271,22 +287,46 @@ class App extends React.Component {
     else if (width > 1024 && width < 1200) numCol = 30;
     else numCol = 50;
 
-    await this.setState({
-      startCellCoords: {
-        row: 12,
-        col: Math.ceil(numCol / 3),
+    this.setState(
+      {
+        startCellCoords: { row: 12, col: Math.ceil(numCol / 3) },
+        endCellCoords: { row: 12, col: Math.ceil(numCol / 3) * 2 },
       },
-      endCellCoords: {
-        row: 12,
-        col: Math.ceil(numCol / 3) * 2,
+      () => {
+        const grid = this.makeGrid();
+        this.setState({
+          grid: grid,
+        });
+      }
+    );
+  };
+  reSizing = () => {
+    if (this.state.isAnimationInProccess) return;
+    const width = window.innerWidth;
+
+    if (width <= 576) numCol = 15;
+    else if (width > 576 && width <= 1024) numCol = 25;
+    else if (width > 1024 && width < 1200) numCol = 30;
+    else numCol = 50;
+
+    this.setState(
+      {
+        startCellCoords: {
+          row: 12,
+          col: Math.ceil(numCol / 3),
+        },
+        endCellCoords: {
+          row: 12,
+          col: Math.ceil(numCol / 3) * 2,
+        },
       },
-    });
-
-    const grid = this.makeGrid();
-
-    this.setState({
-      grid: grid,
-    });
+      () => {
+        const grid = this.makeGrid();
+        this.setState({
+          grid: grid,
+        });
+      }
+    );
   };
 
   componentDidMount() {
@@ -294,34 +334,78 @@ class App extends React.Component {
     window.addEventListener("resize", this.reSizing);
   }
 
+  componentDidUpdate = () => {};
+
   render() {
-    const grid = this.state.grid;
-    const buttonActions = {
-      genMaze: this.genMaze,
-      solveFunction: this.solve,
-      resetGrid: this.resetGrid,
-      drawingWallsHandler: this.drawingWallsHandler,
-      changeStartHandler: this.changeStartHandler,
-      changeEndHandler: this.changeEndHandler,
-      changeSpeedHandler: this.handleAnimationSpeed,
-    };
-    const gridProperties = {
-      isDrawingWalls: this.state.isDrawingWalls,
-      isMouseClicked: this.state.isMouseClicked,
-      isChangingStart: this.state.isChangingStart,
-      isChangingEnd: this.state.isChangingEnd,
-    };
-    const gridActions = {
-      handlePress: this.handlePress,
-      handleMouseDown: this.handleMouseDown,
-      handleMouseUp: this.handleMouseUp,
-      changeEndCell: this.changeEndCell,
-      changeStartCell: this.changeStartCell,
-    };
+    const {
+      grid,
+      isDrawingWalls,
+      isChangingEnd,
+      isChangingStart,
+      isMouseClicked,
+    } = this.state;
     return (
       <main>
-        <Menu actions={buttonActions} />
-        <Grid grid={grid} actions={gridActions} properties={gridProperties} />
+        <Menu>
+          <Legend />
+          <Clickable>
+            <AlgorithmsButtons>
+              <Button
+                text={"Dijkstra"}
+                handleClick={() => this.solve(dijkstra)}
+              />
+              <Button text={"A*"} handleClick={() => this.solve(astar)} />
+              <Button
+                text={"Generate Maze"}
+                handleClick={() => this.genMaze()}
+              />
+            </AlgorithmsButtons>
+            <Interactions>
+              <SelectField
+                id={"animationSpeed"}
+                options={["Fast", "Average", "Slow"]}
+                defaultValue={"Speed"}
+                handleAnimationSpeed={this.animationSpeedHandler}
+              />
+              <Button
+                className="btn-reset"
+                text={"Reset"}
+                handleClick={this.resetGrid}
+              />
+              <Button
+                className="btn-wall"
+                text={"Add walls"}
+                handleClick={this.drawingWallsBtnHandler}
+              />
+              <Button
+                className="btn-start"
+                text={"Change Start"}
+                handleClick={this.changeStartBtnHandler}
+              />
+              <Button
+                className="btn-finish"
+                text={"Change End"}
+                handleClick={this.changeEndBtnHandler}
+              />
+            </Interactions>
+          </Clickable>
+        </Menu>
+        <Grid
+          options={{
+            isDrawingWalls: isDrawingWalls,
+            isMouseClicked: isMouseClicked,
+            isChangingStart: isChangingStart,
+            isChangingEnd: isChangingEnd,
+          }}
+          mouseEvents={{
+            changeStart: this.changeStartCell,
+            changeEnd: this.changeEndCell,
+            mouseDown: this.mouseDownHandler,
+            mouseUp: this.mouseUpHandler,
+            mouseDrag: this.drawWalls,
+          }}
+          grid={grid}
+        />
         <Footer />
       </main>
     );
@@ -330,52 +414,8 @@ class App extends React.Component {
 
 export default App;
 
-//bin (maybe will use in future)
-/*  handlePress = (e) => {
-    if (this.state.isAnimationInProccess) return;
-    const coords = e.target.id.split("-");
-    if (coords.length !== 2) {
-      console.log("out");
-      this.handleMouseUp();
-      return;
-    }
-    if (
-      (parseInt(coords[0]) === this.state.startCellCoords.row &&
-        parseInt(coords[1]) === this.state.startCellCoords.col) ||
-      (parseInt(coords[0]) === this.state.endCellCoords.row &&
-        parseInt(coords[1]) === this.state.endCellCoords.col)
-    )
-      return;
-    document.getElementById(`${coords[0]}-${coords[1]}`).className =
-      "cell wall";
-    this.tempGrid[coords[0]][coords[1]].isWall = true;
-    this.tempGrid[coords[0]][coords[1]].isVisited = false;
-    this.tempGrid[coords[0]][coords[1]].isPath = false;
-  };
-  handleMouseDown = () => {
-    if (this.state.isAnimationInProccess) return;
-    this.tempGrid = this.state.grid;
-    this.setState({
-      isMouseClicked: true,
-    });
-  };
-  handleMouseUp = () => {
-    if (this.state.isAnimationInProccess) return;
-    this.setState({
-      isMouseClicked: false,
-      grid: this.tempGrid,
-    });
-    this.tempGrid = null;
-  };
-  drawingWallsHandler = () => {
-    if (this.state.isAnimationInProccess) return;
-    this.setState({
-      isDrawingWalls: true,
-      isChangingStart: false,
-      isChangingEnd: false,
-    });
-  };
-    animateMaze = (walls) => {
+/*  bin
+animateMaze = (walls) => {
     const { grid, endCellCoords, startCellCoords, animationSpeed } = this.state;
     return new Promise(function (resolve, reject) {
       for (let i = 0; i < walls.length; i++) {
@@ -387,11 +427,12 @@ export default App;
         )
           continue;
         setTimeout(() => {
-          //grid[row][col].isWall = true;
+          grid[row][col].isWall = true;
           document.getElementById(`${row}-${col}`).className = "cell wall";
         }, i * animationSpeed);
       }
       resolve(walls.length * animationSpeed); // immediately give the result: 123
     });
   };
+
 */

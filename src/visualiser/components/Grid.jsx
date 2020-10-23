@@ -2,29 +2,18 @@ import React from "react";
 import Cell from "./Cell";
 
 const Grid = (props) => {
-  const {
-    //handlePress,
-    //handleMouseDown,
-    //handleMouseUp,
-    changeStartCell,
-    changeEndCell,
-  } = props.actions;
-  const {
-    isChangingEnd,
-    isChangingStart,
-    //isDrawingWalls,
-    //isMouseClicked,
-  } = props.properties;
+  const { mouseEvents, options } = props;
   return (
     <section
       className="grid"
       id="grid"
-      // onMouseMove={isDrawingWalls && isMouseClicked ? handlePress : null}
-      // onMouseDown={isDrawingWalls ? handleMouseDown : null}
-      // onMouseUp={isDrawingWalls ? handleMouseUp : null}
-      // onClick={
-      //   isChangingStart ? changeStartCell : isChangingEnd ? changeEndCell : null
-      // }
+      onMouseDown={options.isDrawingWalls ? mouseEvents.mouseDown : null}
+      onMouseUp={options.isDrawingWalls ? mouseEvents.mouseUp : null}
+      onMouseMove={
+        options.isDrawingWalls && options.isMouseClicked
+          ? mouseEvents.mouseDrag
+          : null
+      }
     >
       {props.grid.map((row, rowId) => {
         return (
@@ -50,10 +39,10 @@ const Grid = (props) => {
                   isVisited={isVisited}
                   isPath={isPath}
                   clickHandler={
-                    isChangingStart
-                      ? changeStartCell
-                      : isChangingEnd
-                      ? changeEndCell
+                    options.isChangingStart
+                      ? mouseEvents.changeStart
+                      : options.isChangingEnd
+                      ? mouseEvents.changeEnd
                       : null
                   }
                 ></Cell>

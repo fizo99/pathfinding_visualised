@@ -1,4 +1,5 @@
 export const dijkstra = (grid, startCell, finishCell) => {
+  //console.log(startCell);
   const visitedCellsInOrder = [];
   startCell.distance = 0;
   const unVisitedCells = getCells(grid);

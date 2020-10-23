@@ -1,0 +1,11 @@
+.algorithmsButtons {
+  display: flex;
+  width: 40%;
+  justify-content: space-evenly;
+}
+
+.algorithmsButtons button {
+  width: 45%;
+  height: 50%;
+  margin-left: 2px;
+}
