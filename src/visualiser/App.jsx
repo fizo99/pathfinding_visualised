@@ -265,13 +265,13 @@ class App extends React.Component {
     const cellCoords = e.target.id.split("-");
     if (cellCoords.length < 2) return;
     if (
-      (cellCoords[0] === startCellCoords.row &&
-        cellCoords[1] === startCellCoords.col) ||
-      (cellCoords[0] === endCellCoords.row &&
-        cellCoords[1] === endCellCoords.col)
+      (parseInt(cellCoords[0]) === startCellCoords.row &&
+        parseInt(cellCoords[1]) === startCellCoords.col) ||
+      (parseInt(cellCoords[0]) === endCellCoords.row &&
+        parseInt(cellCoords[1]) === endCellCoords.col)
     )
       return;
-
+    console.log(cellCoords);
     document.getElementById(
       "" + cellCoords[0] + "-" + cellCoords[1]
     ).className = "cell wall";
