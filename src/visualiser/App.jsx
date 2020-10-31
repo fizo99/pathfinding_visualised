@@ -271,7 +271,6 @@ class App extends React.Component {
         parseInt(cellCoords[1]) === endCellCoords.col)
     )
       return;
-    console.log(cellCoords);
     document.getElementById(
       "" + cellCoords[0] + "-" + cellCoords[1]
     ).className = "cell wall";
