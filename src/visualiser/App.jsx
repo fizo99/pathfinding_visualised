@@ -232,13 +232,17 @@ class App extends React.Component {
     if (cellCoords.length < 2) return;
 
     const { endCellCoords, grid } = this.state;
+
     grid[endCellCoords.row][endCellCoords.col].isFinish = false;
-    grid[parseInt(cellCoords[0])][parseInt(cellCoords[1])].isFinish = true;
+    const row = parseInt(cellCoords[0]);
+    const col = parseInt(cellCoords[1]);
+    grid[row][col].isWall = false;
+    grid[row][col].isFinish = true;
     this.setState({
       grid: grid,
       endCellCoords: {
-        row: parseInt(cellCoords[0]),
-        col: parseInt(cellCoords[1]),
+        row: row,
+        col: col,
       },
     });
   };
@@ -248,13 +252,16 @@ class App extends React.Component {
     if (cellCoords.length < 2) return;
 
     const { startCellCoords, grid } = this.state;
+    const row = parseInt(cellCoords[0]);
+    const col = parseInt(cellCoords[1]);
     grid[startCellCoords.row][startCellCoords.col].isStart = false;
-    grid[parseInt(cellCoords[0])][parseInt(cellCoords[1])].isStart = true;
+    grid[row][col].isWall = false;
+    grid[row][col].isStart = true;
     this.setState({
       grid: grid,
       startCellCoords: {
-        row: parseInt(cellCoords[0]),
-        col: parseInt(cellCoords[1]),
+        row: row,
+        col: col,
       },
     });
   };
