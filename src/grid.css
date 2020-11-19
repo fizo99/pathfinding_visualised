@@ -1,0 +1,20 @@
+.cell {
+    background-color: black;
+    width:30px;
+    height: 30px;
+    float: left;
+    box-sizing: border-box;
+}
+.grid {
+    background-color: yellow;
+    margin:auto;
+}
+.start-cell {
+    background-color: green;
+}
+.end-cell {
+    background-color: red;
+}
+.visited-cell {
+    background-color: purple;
+}
