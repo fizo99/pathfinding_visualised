@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Dijkstra_Prim_visualisation/static/css/main.2b2c5fce.chunk.css",
-    "main.js": "/Dijkstra_Prim_visualisation/static/js/main.63868a29.chunk.js",
-    "main.js.map": "/Dijkstra_Prim_visualisation/static/js/main.63868a29.chunk.js.map",
-    "runtime-main.js": "/Dijkstra_Prim_visualisation/static/js/runtime-main.cd2c1d81.js",
-    "runtime-main.js.map": "/Dijkstra_Prim_visualisation/static/js/runtime-main.cd2c1d81.js.map",
-    "static/js/2.c63ef0df.chunk.js": "/Dijkstra_Prim_visualisation/static/js/2.c63ef0df.chunk.js",
-    "static/js/2.c63ef0df.chunk.js.map": "/Dijkstra_Prim_visualisation/static/js/2.c63ef0df.chunk.js.map",
-    "index.html": "/Dijkstra_Prim_visualisation/index.html",
-    "precache-manifest.8e2d0760e2ae6f06a81f05b6dfcf999b.js": "/Dijkstra_Prim_visualisation/precache-manifest.8e2d0760e2ae6f06a81f05b6dfcf999b.js",
-    "service-worker.js": "/Dijkstra_Prim_visualisation/service-worker.js",
-    "static/css/main.2b2c5fce.chunk.css.map": "/Dijkstra_Prim_visualisation/static/css/main.2b2c5fce.chunk.css.map",
-    "static/js/2.c63ef0df.chunk.js.LICENSE.txt": "/Dijkstra_Prim_visualisation/static/js/2.c63ef0df.chunk.js.LICENSE.txt"
+    "main.css": "/pathfinding_visualised/static/css/main.2b2c5fce.chunk.css",
+    "main.js": "/pathfinding_visualised/static/js/main.8c42e5de.chunk.js",
+    "main.js.map": "/pathfinding_visualised/static/js/main.8c42e5de.chunk.js.map",
+    "runtime-main.js": "/pathfinding_visualised/static/js/runtime-main.53d66fa1.js",
+    "runtime-main.js.map": "/pathfinding_visualised/static/js/runtime-main.53d66fa1.js.map",
+    "static/js/2.c63ef0df.chunk.js": "/pathfinding_visualised/static/js/2.c63ef0df.chunk.js",
+    "static/js/2.c63ef0df.chunk.js.map": "/pathfinding_visualised/static/js/2.c63ef0df.chunk.js.map",
+    "index.html": "/pathfinding_visualised/index.html",
+    "precache-manifest.d82482d16291c1a95514eaf73c264e1a.js": "/pathfinding_visualised/precache-manifest.d82482d16291c1a95514eaf73c264e1a.js",
+    "service-worker.js": "/pathfinding_visualised/service-worker.js",
+    "static/css/main.2b2c5fce.chunk.css.map": "/pathfinding_visualised/static/css/main.2b2c5fce.chunk.css.map",
+    "static/js/2.c63ef0df.chunk.js.LICENSE.txt": "/pathfinding_visualised/static/js/2.c63ef0df.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.cd2c1d81.js",
+    "static/js/runtime-main.53d66fa1.js",
     "static/js/2.c63ef0df.chunk.js",
     "static/css/main.2b2c5fce.chunk.css",
-    "static/js/main.63868a29.chunk.js"
+    "static/js/main.8c42e5de.chunk.js"
   ]
 }
